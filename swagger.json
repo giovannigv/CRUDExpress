@@ -1,0 +1,155 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "CRUDExpress app",
+      "description": "CRUD Express",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Users",
+        "description": "API for users in the system"
+      }
+    ],
+    "schemes": ["http"],
+    "paths": {
+        "/users": {
+          "get": {
+            "tags": ["Users"],
+            "summary": "Get a User or all Users",
+            "parameters": [
+              {
+                "name": "email",
+                "type": "string",
+                "in": "query"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              },
+              "404": {
+                "description": "User not found"
+              }
+            }
+          },
+          "post": {
+            "tags": ["Users"],
+            "summary": "Create a new User",
+            "parameters": [
+              {
+                "in": "body",
+                "name": "body",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/RequestUser"
+                }
+              }
+            ],
+            "responses": {
+              "201": {
+                "description": "Created"
+              },
+              "409": {
+                "description": "User already created"
+              },
+              "412": {
+                "description": "Email Invalid"
+              }
+            }
+          },
+          "put": {
+            "tags": ["Users"],
+            "summary": "Update a User",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "email",
+                "type": "string",
+                "required": true
+              },
+              {
+                "in": "body",
+                "name": "body",
+                "schema": {
+                  "$ref": "#/definitions/RequestUser"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "OK"
+              },
+              "404": {
+                "description": "User not found"
+              }
+            }
+          },
+          "delete": {
+            "tags": ["Users"],
+            "summary": "Delete a User",
+            "parameters": [
+              {
+                "in": "query",
+                "name": "email",
+                "type": "string",
+                "required": true
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "OK"
+              }
+            }
+          }
+        }
+      },
+      "definitions": {
+        "User": {
+          "properties": {
+            "id": {
+              "type": "integer",
+              "uniqueItems": true
+            },
+            "email": {
+              "type": "string"
+            },
+            "givenName": {
+              "type": "string"
+            },
+            "familyName": {
+              "type": "string"        
+            },
+            "created": {
+              "type": "string",
+              "example":""
+            }
+          }
+        },
+        "RequestUser": {
+          "required": ["email"],
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "givenName": {
+              "type": "string"
+            },
+            "familyName": {
+              "type": "string"        
+            }
+          }
+        }
+      },
+    "consumes": ["application/json"],
+    "produces": ["application/json"]
+  }

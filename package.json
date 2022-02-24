@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint . --ext .js,.jsx"
   },
   "author": "",
   "license": "ISC",
